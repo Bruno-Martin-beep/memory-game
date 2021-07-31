@@ -55,6 +55,54 @@ const items = [
 function App() {
   const [finalList, setfinalList] = useState([]);
 
+  //timer
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
+  const [time, setTime] = useState(0);
+
+  const handleStart = () => {
+    setIsPlaying(true);
+  };
+
+  const handleRestart = () => {
+    setIsPlaying(false);
+    // setIsFinished(false);
+    setTime(0);
+  }
+
+  useEffect(() => {
+    let interval = null;
+
+    if (isPlaying && !isFinished) {
+      interval = setInterval(() => {
+        setTime((time) => time + 100);
+      }, 100);
+    } else {
+      clearInterval(interval);
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [isPlaying, isFinished]);
+
+  const forceUpdate = JSON.stringify(finalList);
+
+  useEffect(() => {
+    console.log(finalList);
+
+    let arr1 = null;
+
+    if (finalList.length !== 0) {
+      arr1 = finalList.every((element) => element.active)
+    }
+
+    if (arr1) {
+      setIsFinished(true);
+      setIsPlaying(false)
+    }
+  }, [forceUpdate, finalList]);
+
   // handle selects
 
   const [select1, setselect1] = useState(null);
@@ -62,7 +110,6 @@ function App() {
 
   const handleSelect = (value) => {
     if (!value.active && (select1 === null || select2 === null)) {
-      // if (!value.active) {
       if (select1 === null) {
         setfinalList((prev) => {
           prev[value.id].active = true;
@@ -120,7 +167,7 @@ function App() {
     return arr1;
   };
 
-  console.log(finalList);
+  // console.log(finalList);
 
   useEffect(() => {
     setfinalList(randomlyItems(doubleItems(items)));
@@ -128,6 +175,12 @@ function App() {
 
   return (
     <div className="App">
+      <div>
+        <h1 className="time">{time}</h1>
+        <h1 onClick={handleStart}>play</h1>
+        <h1 onClick={handleRestart}>restart</h1>
+      </div>
+      
       <div className="grid">
         {finalList.map((element, i) => {
           return (
