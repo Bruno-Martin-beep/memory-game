@@ -1,0 +1,45 @@
+//theme
+
+$text: hsl(0, 0, 90%);
+
+$bg: hsl(0, 0%, 10%);
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  font-family: "Montserrat";
+  font-weight: 500;
+}
+
+p {
+  color: $text;
+}
+
+body {
+  background-color: $bg;
+  width: 100%;
+}
+
+.grid {
+  width: 90%;
+  margin: 5vh 5%;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+
+}
+
+.gridItem {
+  width: 90%;
+  aspect-ratio: 1 / 1;
+  margin: 5%;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(0, 0, 50%);
+}
