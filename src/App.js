@@ -1,107 +1,62 @@
 import "./styles/index.css";
 import { useEffect, useState } from "react";
+import items from "./components/items";
+import Scorelist from "./components/Scorelist";
+import Submit from "./components/Submit";
+import Home from "./components/Home";
 
-const items = [
-  {
-    active: false,
-    name: "shinji",
-    urlBg: null,
-    urlChar: null,
-  },
-  {
-    active: false,
-    name: "misato",
-    urlBg: null,
-    urlChar: null,
-  },
-  {
-    active: false,
-    name: "gendo",
-    urlBg: null,
-    urlChar: null,
-  },
-  {
-    active: false,
-    name: "rei",
-    urlBg: null,
-    urlChar: null,
-  },
-  {
-    active: false,
-    name: "asuka",
-    urlBg: null,
-    urlChar: null,
-  },
-  {
-    active: false,
-    name: "kaworu",
-    urlBg: null,
-    urlChar: null,
-  },
-  {
-    active: false,
-    name: "ritsuko",
-    urlBg: null,
-    urlChar: null,
-  },
-  {
-    active: false,
-    name: "ryoji",
-    urlBg: null,
-    urlChar: null,
-  },
-];
 
 function App() {
   const [finalList, setfinalList] = useState([]);
+  const [errors, setErrors] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
 
   //timer
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isFinished, setIsFinished] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [time, setTime] = useState(0);
-
-  const handleStart = () => {
-    setIsPlaying(true);
-  };
+  
+  const handlePause = () => {
+    setIsPaused(true);
+  }
 
   const handleRestart = () => {
-    setIsPlaying(false);
-    // setIsFinished(false);
+    setIsPlaying(true);
+    setIsPaused(true)
     setTime(0);
-  }
+    setErrors(0);
+    setIsFinished(false);
+    setfinalList(doubleAndRandomlyItems(items));
+  };
 
   useEffect(() => {
     let interval = null;
 
-    if (isPlaying && !isFinished) {
+    if (isPlaying && !isPaused) {
       interval = setInterval(() => {
-        setTime((time) => time + 100);
-      }, 100);
+        setTime((time) => time + 10);
+      }, 10);
     } else {
       clearInterval(interval);
     }
     return () => {
       clearInterval(interval);
     };
-  }, [isPlaying, isFinished]);
-
-  const forceUpdate = JSON.stringify(finalList);
+  }, [isPlaying, isPaused]);
 
   useEffect(() => {
-    console.log(finalList);
-
     let arr1 = null;
 
     if (finalList.length !== 0) {
-      arr1 = finalList.every((element) => element.active)
+      arr1 = finalList.every((element) => element.active);
     }
 
     if (arr1) {
+      setIsPlaying(false);
       setIsFinished(true);
-      setIsPlaying(false)
     }
-  }, [forceUpdate, finalList]);
+  }, [finalList]);
 
   // handle selects
 
@@ -109,38 +64,31 @@ function App() {
   const [select2, setselect2] = useState(null);
 
   const handleSelect = (value) => {
-    if (!value.active && (select1 === null || select2 === null)) {
+    if (!value.active && (select1 === null || select2 === null) && isPlaying) {
+      if(isPaused) {
+        setIsPaused(false);
+      }
       if (select1 === null) {
-        setfinalList((prev) => {
-          prev[value.id].active = true;
-          return prev;
-        });
+        setfinalList((prev) => [...prev.slice(0,value.id), {...prev[value.id],  active: true}, ...prev.slice(value.id + 1)]);
         return setselect1(value);
       } else {
-        setfinalList((prev) => {
-          prev[value.id].active = true;
-          return prev;
-        });
+        setfinalList((prev) => [...prev.slice(0,value.id), {...prev[value.id],  active: true}, ...prev.slice(value.id + 1)]);
         return setselect2(value);
       }
     }
   };
 
-  const resetItems = () => {
-    setfinalList((prev) => {
-      prev[select1.id].active = false;
-      return prev;
-    });
-    setselect1(null);
-
-    setfinalList((prev) => {
-      prev[select2.id].active = false;
-      return prev;
-    });
-    setselect2(null);
-  };
-
   useEffect(() => {
+    const resetItems = () => {
+      setfinalList((prev) => [...prev.slice(0,select1.id), {...prev[select1.id],  active: false}, ...prev.slice(select1.id + 1)]);
+      setselect1(null);
+  
+      setfinalList((prev) => [...prev.slice(0,select2.id), {...prev[select2.id],  active: false}, ...prev.slice(select2.id + 1)]);
+      setselect2(null);
+
+      setErrors(prev => prev + 1)
+    };
+
     if (select1 !== null && select2 !== null) {
       if (select1.name === select2.name) {
         setselect1(null);
@@ -155,32 +103,29 @@ function App() {
 
   //get finalList
 
-  const doubleItems = (arr) => {
-    return arr.reduce((acc, x) => acc.concat([x, x]), []);
-  };
+  const doubleAndRandomlyItems = (arr) => {
+    let arr1 = arr.reduce((acc, x) => acc.concat([x, x]), []);
 
-  const randomlyItems = (arr) => {
-    let arr1 = arr.sort(() => Math.random() - 0.5);
+    arr1 = arr1.sort(() => Math.random() - 0.5);
 
     arr1 = arr1.map((element, index) => ({ ...element, id: index }));
 
     return arr1;
   };
-
-  // console.log(finalList);
-
-  useEffect(() => {
-    setfinalList(randomlyItems(doubleItems(items)));
-  }, []);
+ 
 
   return (
     <div className="App">
+      <Home />
       <div>
-        <h1 className="time">{time}</h1>
-        <h1 onClick={handleStart}>play</h1>
-        <h1 onClick={handleRestart}>restart</h1>
+        <p className="time">{time}</p>
+        <p>{errors}</p>
+        <p onClick={handleRestart}>start</p>
+        <p onClick={handlePause}>pause</p>
+        <p onClick={handleRestart}>restart</p>
+        {isFinished && <Submit time={time} errors={errors} handleRestart={handleRestart} />}
       </div>
-      
+
       <div className="grid">
         {finalList.map((element, i) => {
           return (
@@ -195,6 +140,7 @@ function App() {
           );
         })}
       </div>
+      <Scorelist />
     </div>
   );
 }
