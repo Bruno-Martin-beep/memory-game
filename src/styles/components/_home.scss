@@ -1,0 +1,21 @@
+.home {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.name {
+  width: min-content;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.MG {
+  margin-top: 5vh;
+}
+
+.start {
+  text-align: end;
+  text-decoration: underline;
+}

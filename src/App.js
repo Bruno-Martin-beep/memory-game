@@ -1,4 +1,4 @@
-import "./styles/index.css";
+import "./styles/main.css";
 import { useEffect, useState } from "react";
 import items from "./components/items";
 import Scorelist from "./components/Scorelist";

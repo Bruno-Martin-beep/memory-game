@@ -10,27 +10,27 @@
 }
 
 body {
-  background-color: #1a1a1a;
   width: 100%;
+  background-color: #1a1a1a;
 }
 
 p {
+  margin: 0 20px;
   font-size: 40px;
   color: #e6e6e6;
-  margin: 0 20px;
 }
 
 h1 {
   display: inline;
-  font-size: 9vw;
   color: #e6e6e6;
+  font-size: 9vw;
   line-height: 100%;
 }
 
 h2 {
   display: inline;
-  font-size: 5vw;
   color: #e6e6e6;
+  font-size: 5vw;
 }
 
 .home {
@@ -101,4 +101,4 @@ h2 {
       grid-template-columns: auto auto 0.5fr auto;
   margin: 0 5%;
 }
-/*# sourceMappingURL=index.css.map */
+/*# sourceMappingURL=main.css.map */
