@@ -1,7 +1,14 @@
 .home {
   width: 100%;
   height: 100vh;
+  position: absolute;
   display: flex;
+  z-index: 100;
+  background-color: $bg;
+
+  &.is-active {
+    visibility: hidden;
+  }
 }
 
 .name {
@@ -16,6 +23,15 @@
 }
 
 .start {
+  box-sizing: content-box;
   text-align: end;
-  text-decoration: underline;
+  
+}
+
+.start-text {
+  border-bottom: $text solid 0.4vw;
+  @include landscape {
+    border-bottom: $text solid 0.4vh;
+  }
+  cursor: pointer;
 }

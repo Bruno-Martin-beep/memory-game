@@ -14,21 +14,74 @@ body {
   background-color: $bg;
 }
 
-p {
-  margin: 0 20px;
-  font-size: 40px;
-  color: $text;
-}
 
 h1 {
   display: inline;
-  color: $text;
-  font-size: 9vw;
+  @include portrait {
+    font-size: 13vw;
+  }
+  @include landscape {
+    font-size: clamp( 14.5vh, 13vw , 18.5vh);
+  }
+  font-family: "Montserrat", serif;
   line-height: 100%;
+  color: $text;
 }
 
 h2 {
   display: inline;
+  @include portrait {
+    font-size: 7.5vw;
+  }
+  @include landscape {
+    font-size: clamp(8.25vh, 7.5vw, 10.5vh);
+  }
+  font-family: "Epilogue", sans-serif;
   color: $text;
-  font-size: 5vw;
+}
+
+h3 {
+  display: inline;
+  @include portrait {
+    font-size: 4vw;
+  }
+  @include landscape {
+    font-size: clamp( 4vh, 4vw, 8.5vh);
+  }
+  font-family: "Epilogue", sans-serif;
+  color: $text;
+}
+
+p {
+  margin: 0 20px;
+  display: inline;
+  font-size: 40px;
+  @include portrait {
+    font-size: 2vw;
+  }
+  @include landscape {
+    font-size: clamp(2vh, 2vw, 4vh);
+  }
+  font-family: "Epilogue", sans-serif;
+  color: $text;
+}
+
+.game {
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    background: hsl(0, 0, 15%);
+    width: 0.8vw;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: hsl(0, 0, 50%);
+    transition: all 0.5s ease;
+    
+    &:hover {
+      background: hsl(0, 0, 75%);
+    }
+  }
 }

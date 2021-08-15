@@ -1,0 +1,75 @@
+.contBar-cont {
+  width: 90%;
+  @include portrait {
+    height: 4vw;
+  }
+  @include landscape {
+    height: clamp(6vh, 4vw, 10vh);
+  }
+  padding: 2vh 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contBar-info {
+  display: flex;
+  align-items: center;
+}
+
+.aling-names {
+  margin: 0;
+  align-self: flex-start;
+}
+
+.mainTime {
+  width: 21vw;
+  @include portrait {
+    width: 21vw;
+    font-size: 4vw;
+  }
+  @include landscape {
+    width: clamp(10vh, 21vw, 40vh); 
+    font-size: clamp( 4vh, 4vw, 8.5vh);
+  }
+  margin: 0 1vw;
+  font-size: 4vw;
+  line-height: 100%;
+  align-self: flex-end;
+}
+
+.mili-sec {
+  @include portrait {
+    font-size: 3vw;
+  }
+  @include landscape {
+    font-size: clamp(3vh, 3vw, 6vh);
+  }
+  line-height: 100%;
+  align-self: flex-end;
+}
+
+.errorsInfo {
+  margin: 0 1vw;
+  @include portrait {
+    font-size: 3vw;
+  }
+  @include landscape {
+    font-size: clamp(3vh, 3vw, 6vh);
+  }
+  line-height: 100%;
+  align-self: flex-end;
+}
+
+.contBar {
+  display: flex;
+  align-items: center;
+}
+
+.contBar-buttons {
+  margin-top: 3%;
+}
+
+.pause {
+  margin-right: 2vw;
+}

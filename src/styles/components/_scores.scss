@@ -1,5 +1,26 @@
+.scores-cont {
+  padding: 2vh 5%;
+}
+
 .scores {
+  width: 90%;
+  margin: auto;
   display: grid;
   grid-template-columns: auto auto 0.5fr auto;
-  margin: 0 5%;
+  margin-bottom: 5vh;
+}
+
+.scores-title {
+  margin: 1vw 1vw 2vw 1vw;
+}
+
+.scores-item {
+  margin: 1vw;
+}
+
+.score-mili-sec {
+  @include portrait {
+    font-size: 1.5vw;
+  }
+  font-size: 1.5vw;
 }

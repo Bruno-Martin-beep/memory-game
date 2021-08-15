@@ -4,7 +4,8 @@ import items from "./components/items";
 import Scorelist from "./components/Scorelist";
 import Submit from "./components/Submit";
 import Home from "./components/Home";
-
+import ControlsBar from "./components/ControlsBar";
+import CardsList from "./components/CardsList";
 
 function App() {
   const [finalList, setfinalList] = useState([]);
@@ -16,14 +17,14 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [time, setTime] = useState(0);
-  
+
   const handlePause = () => {
     setIsPaused(true);
-  }
+  };
 
   const handleRestart = () => {
     setIsPlaying(true);
-    setIsPaused(true)
+    setIsPaused(true);
     setTime(0);
     setErrors(0);
     setIsFinished(false);
@@ -65,14 +66,22 @@ function App() {
 
   const handleSelect = (value) => {
     if (!value.active && (select1 === null || select2 === null) && isPlaying) {
-      if(isPaused) {
+      if (isPaused) {
         setIsPaused(false);
       }
       if (select1 === null) {
-        setfinalList((prev) => [...prev.slice(0,value.id), {...prev[value.id],  active: true}, ...prev.slice(value.id + 1)]);
+        setfinalList((prev) => [
+          ...prev.slice(0, value.id),
+          { ...prev[value.id], active: true },
+          ...prev.slice(value.id + 1),
+        ]);
         return setselect1(value);
       } else {
-        setfinalList((prev) => [...prev.slice(0,value.id), {...prev[value.id],  active: true}, ...prev.slice(value.id + 1)]);
+        setfinalList((prev) => [
+          ...prev.slice(0, value.id),
+          { ...prev[value.id], active: true },
+          ...prev.slice(value.id + 1),
+        ]);
         return setselect2(value);
       }
     }
@@ -80,13 +89,21 @@ function App() {
 
   useEffect(() => {
     const resetItems = () => {
-      setfinalList((prev) => [...prev.slice(0,select1.id), {...prev[select1.id],  active: false}, ...prev.slice(select1.id + 1)]);
+      setfinalList((prev) => [
+        ...prev.slice(0, select1.id),
+        { ...prev[select1.id], active: false },
+        ...prev.slice(select1.id + 1),
+      ]);
       setselect1(null);
-  
-      setfinalList((prev) => [...prev.slice(0,select2.id), {...prev[select2.id],  active: false}, ...prev.slice(select2.id + 1)]);
+
+      setfinalList((prev) => [
+        ...prev.slice(0, select2.id),
+        { ...prev[select2.id], active: false },
+        ...prev.slice(select2.id + 1),
+      ]);
       setselect2(null);
 
-      setErrors(prev => prev + 1)
+      setErrors((prev) => prev + 1);
     };
 
     if (select1 !== null && select2 !== null) {
@@ -112,35 +129,32 @@ function App() {
 
     return arr1;
   };
- 
+
+  useEffect(() => {
+    setIsPlaying(true);
+    setIsPaused(true);
+    setfinalList(doubleAndRandomlyItems(items));
+  }, []);
 
   return (
     <div className="App">
       <Home />
-      <div>
-        <p className="time">{time}</p>
-        <p>{errors}</p>
-        <p onClick={handleRestart}>start</p>
-        <p onClick={handlePause}>pause</p>
-        <p onClick={handleRestart}>restart</p>
-        {isFinished && <Submit time={time} errors={errors} handleRestart={handleRestart} />}
+      <div className="game">
+        <ControlsBar
+          time={time}
+          errors={errors}
+          handlePause={handlePause}
+          handleRestart={handleRestart}
+        />
+        <CardsList cardsList={finalList} handleSelect={handleSelect} />
+        <Scorelist />
       </div>
-
-      <div className="grid">
-        {finalList.map((element, i) => {
-          return (
-            <div
-              className="gridItem"
-              key={i}
-              onClick={() => handleSelect(element)}
-            >
-              <p>{element.name}</p>
-              <p>{element.active ? "activo" : ""}</p>
-            </div>
-          );
-        })}
-      </div>
-      <Scorelist />
+      <Submit
+        time={time}
+        errors={errors}
+        setIsFinished={setIsFinished}
+        isFinished={isFinished}
+      />
     </div>
   );
 }

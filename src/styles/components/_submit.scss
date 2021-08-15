@@ -1,0 +1,76 @@
+.submit-bg {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $bg;
+  visibility: hidden;
+
+  &.is-active {
+    visibility: visible;
+  }
+}
+
+.submit-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.submit-margin {
+  margin: 5vh;
+}
+
+.submit-form {
+  position: relative;
+}
+
+.submit-input {
+  @include portrait {
+    width: 50vw;
+    height: 5vw;
+    font-size: 4vw;
+  }
+  @include landscape {
+    width: clamp(60vh, 40vw, 80vh);
+    height: clamp(6vh, 5vw, 10vh);
+    font-size: clamp(4vh, 4vw, 8.5vh);
+  }
+  background-color: transparent;
+  font-family: "Epilogue", sans-serif;
+  color: $text;
+  border-bottom: hsl(0, 0, 50%) solid 0.2vw;
+  transition: border-bottom ease 0.5s;
+
+  &:focus {
+    outline: 0;
+    border-bottom: $text solid 0.2vw;
+  }
+}
+
+.submit-check {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  @include portrait {
+    font-size: 4vw;
+  }
+  @include landscape {
+    font-size: clamp(4vh, 4vw, 8.5vh);
+  }
+  font-family: "Epilogue", sans-serif;
+  background-color: transparent;
+  color: $text;
+  visibility: hidden;
+  cursor: pointer;
+
+  &.is-active {
+    visibility: visible;
+  }
+}

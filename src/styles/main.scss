@@ -1,6 +1,10 @@
 /// utilities
 
-@import "utilities/colors";
+@import 
+  "utilities/colors",
+  "utilities/fonts",
+  "utilities/media-queries"
+;
 
 /// base
 
@@ -10,8 +14,10 @@
 
 @import
   'components/home',
-  'components/grid',
-  'components/scores'
+  'components/controls-bar',
+  'components/cards-list',
+  'components/scores',
+  'components/submit'
 ;
 
 
