@@ -121,7 +121,7 @@ p {
 
 @media (orientation: portrait) {
   p {
-    font-size: 2vw;
+    font-size: 3vw;
   }
 }
 
@@ -307,13 +307,16 @@ p {
 }
 
 .cardsList {
-  width: 90%;
-  padding: 0 5%;
+  width: 90vw;
+  min-height: 80vh;
+  margin: auto;
   display: -ms-grid;
   display: grid;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
   justify-items: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -322,15 +325,15 @@ p {
 
 @media (orientation: portrait) {
   .cardsList {
-    -ms-grid-columns: (15vw)[auto-fit];
-        grid-template-columns: repeat(auto-fit, 15vw);
+    -ms-grid-columns: (minmax(0, clamp(13.33333vh, 20vw, 40vh)))[auto-fit];
+        grid-template-columns: repeat(auto-fit, minmax(0, clamp(13.33333vh, 20vw, 40vh)));
   }
 }
 
 @media (orientation: landscape) {
   .cardsList {
-    -ms-grid-columns: (1fr)[6];
-        grid-template-columns: repeat(6, 1fr);
+    -ms-grid-columns: (minmax(0, clamp(20vh, 13.5vw, 40vh)))[auto-fit];
+        grid-template-columns: repeat(auto-fit, minmax(0, clamp(20vh, 13.5vw, 40vh)));
   }
 }
 
@@ -347,14 +350,14 @@ p {
 
 @media (orientation: portrait) {
   .card {
-    width: 11vw;
+    height: clamp(8vh, 11vw, 10vh);
     margin: 2vw;
   }
 }
 
 @media (orientation: landscape) {
   .card {
-    height: clamp(8vh, 8.25vw, 17vh);
+    height: clamp(12.30769vh, 8.25vw, 17.77778vh);
     margin: clamp(2vh, 2vw, 4vh);
   }
 }
@@ -380,12 +383,18 @@ p {
   overflow: hidden;
 }
 
-.card-back {
+.card-left {
   position: absolute;
-  height: 80%;
-  padding: 10% 20%;
+  height: 100%;
+  left: 0;
   z-index: 2;
-  background-color: #2e2e33;
+}
+
+.card-right {
+  position: absolute;
+  height: 100%;
+  left: 44.9%;
+  z-index: 2;
 }
 
 .card-bg {
@@ -435,16 +444,16 @@ p {
 }
 
 .scores-title {
-  margin: 1vw 1vw 2vw 1vw;
+  margin: 2vw 2vw 3vw 2vw;
 }
 
 .scores-item {
-  margin: 1vw;
+  margin: 1.5vw;
 }
 
 @media (orientation: portrait) {
   .score-mili-sec {
-    font-size: 1.6vw;
+    font-size: 2.4vw;
   }
 }
 

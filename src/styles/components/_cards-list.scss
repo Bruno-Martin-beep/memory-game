@@ -1,28 +1,74 @@
+
+/// funciona pero todavia no se como
+                                                                           
+//               `-::::::::-.`                                             
+//             :o+````   ```.://:-`                                        
+//           `sy/`              `.:/:`                                     
+//         .:+.`                    .+:                                    
+//       `+:`                         :+`                                  
+//      -+.                            `o`                                 
+//     :+`                              .s`                                
+//    .s                                 .o                                
+//    s.      .:+s+::::                   +:                               
+//   `s        `yy-            :   `:::-.--y`                              
+//   .o                      -.o.     `..dmh-                              
+//   .+                      `//`        `-:/                              
+//   .+                     ````           .+                              
+//   `s                 .//:::://          :/    /  o                      
+//    s.               :-      /.          s`   s- .y                      
+//    `y                       :+o.       -+    s- //                      
+//     .s          :o+//:::-` `s y       .s     :  `.                      
+//      -o         `.-:+yooso:/: s      `s`   +ysssssss/                   
+//      -oo-           -o+/.`    s`    -o`    s````````y/+                 
+//      y `-/:`         :oy/.-::o.o  -o:`     -o`     -h/d/-               
+//      s    .//-.`       -:-.` s`/s/-s        ./:::::+o-::s/.             
+//      s      `..:///:---...--:o+ o- +.            `  .o  `-y-            
+//      s`   :.       ``.......` +-`/ :/               /-    s:            
+//      :+  `y                    s`  -/               s`   .s             
+//       y  `s                    -o.`-/              `y    .+             
+//       /:  s`                  `.h+/::              //    `s             
+//       `s  .o`             ```.o--hso+/.            y  `o//+             
+//        //` .o-  ``..-://:::-:/-.:o/://y`          .o  :/                
+//         .s+-`/+/:--..``.-::::::.`+.               +-  s`                
+//          /:.:://::::::-.`        :/              `s  .o                 
+//          `s                       s`             o.  o`                    
+
 .cardsList {
-  width: 90%;
-  padding: 0 5%;
+  width: 90vw;
+  min-height: 80vh;
+  margin: auto;
   display: grid;
   @include portrait {
-    grid-template-columns: repeat(auto-fit, 15vw);
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(0, clamp((80vh / 6), (20vw), (80vh / 2)))
+    );
   }
   @include landscape {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(0, clamp((80vh / 4), (18vw * 0.75), (80vh /2)))
+    );
+    
   }
   justify-content: center;
+  align-content: center;
   justify-items: center;
   align-items: center;
 }
 
 .card {
   @include portrait {
-    width: 11vw;
+    height: clamp((80vh / 10), (11vw), ((80vh / 8)));
     margin: 2vw;
   }
 
   @include landscape {
-    height: clamp(8vh, 11vw * 0.75, 17vh);
-    margin:clamp(2vh, 2vw, 4vh);
+    // height: clamp(11vh, 11vw * 0.75, 25vh);
+    height: clamp((80vh / 6.5), (11vw * 0.75), ((80vh / 4.5)));
+    margin: clamp(2vh, 2vw, 4vh);
   }
+
   aspect-ratio: 4 / 3;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -42,12 +88,18 @@
   overflow: hidden;
 }
 
-.card-back {
+.card-left {
   position: absolute;
-  height: 80%;
-  padding: 10% 20%;
+  height: 100%;
+  left: 0;
   z-index: 2;
-  background-color: rgb(46, 46, 51);
+}
+
+.card-right {
+  position: absolute;
+  height: 100%;
+  left: 44.9%;
+  z-index: 2;
 }
 
 .card-bg {

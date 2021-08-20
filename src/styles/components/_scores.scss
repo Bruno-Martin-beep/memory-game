@@ -17,16 +17,16 @@
 }
 
 .scores-title {
-  margin: 1vw 1vw 2vw 1vw;
+  margin: 2vw 2vw 3vw 2vw;
 }
 
 .scores-item {
-  margin: 1vw;
+  margin: 1.5vw;
 }
 
 .score-mili-sec {
   @include portrait {
-    font-size: 1.6vw;
+    font-size: (3vw * 0.80);
   }
   @include landscape {
     font-size: clamp(1.6vh, 1.6vw, 3.2vh);

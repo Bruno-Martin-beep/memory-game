@@ -24,9 +24,8 @@ function App() {
   };
 
   const handleRestart = () => {
-    gsap.to(".card-back", 0.2, {
-      y: "0",
-    });
+    gsap.to(".card-left", 0.2, { x: "0" });
+    gsap.to(".card-right", 0.2, { x: "0" });
     setIsPlaying(true);
     setIsPaused(true);
     setTime(0);
@@ -81,7 +80,8 @@ function App() {
           { ...prev[value.id], active: true },
           ...prev.slice(value.id + 1),
         ]);
-        gsap.to(`.${"card-" + value.id}`, 0.2, { y: "120%" });
+        gsap.to(`.${"card-left" + value.id}`, 0.2, { x: "-100%" });
+        gsap.to(`.${"card-right" + value.id}`, 0.2, { x: "101%" });
         return setselect1(value);
       } else {
         setfinalList((prev) => [
@@ -89,7 +89,8 @@ function App() {
           { ...prev[value.id], active: true },
           ...prev.slice(value.id + 1),
         ]);
-        gsap.to(`.${"card-" + value.id}`, 0.2, { y: "120%" });
+        gsap.to(`.${"card-left" + value.id}`, 0.2, { x: "-100%" });
+        gsap.to(`.${"card-right" + value.id}`, 0.2, { x: "101%" });
         return setselect2(value);
       }
     }
@@ -97,23 +98,34 @@ function App() {
 
   useEffect(() => {
     const resetItems = () => {
-      gsap.to(`.${"card-" + select1.id}`, 0.2, { y: "0" });
-      setfinalList((prev) => [
-        ...prev.slice(0, select1.id),
-        { ...prev[select1.id], active: false },
-        ...prev.slice(select1.id + 1),
-      ]);
+      gsap.to(`.${"card-left" + select1.id}`, 0.2, { x: "0" });
+      gsap.to(`.${"card-right" + select1.id}`, 0.2, { x: "0" });
+
+      let revomeImg1 = setTimeout(() => {
+        setfinalList((prev) => [
+          ...prev.slice(0, select1.id),
+          { ...prev[select1.id], active: false },
+          ...prev.slice(select1.id + 1),
+        ]);
+      }, 200);
+
       setselect1(null);
 
-      gsap.to(`.${"card-" + select2.id}`, 0.2, { y: "0" });
-      setfinalList((prev) => [
-        ...prev.slice(0, select2.id),
-        { ...prev[select2.id], active: false },
-        ...prev.slice(select2.id + 1),
-      ]);
+      gsap.to(`.${"card-left" + select2.id}`, 0.2, { x: "0" });
+      gsap.to(`.${"card-right" + select2.id}`, 0.2, { x: "0" });
+
+      let revomeImg2 = setTimeout(() => {
+        setfinalList((prev) => [
+          ...prev.slice(0, select2.id),
+          { ...prev[select2.id], active: false },
+          ...prev.slice(select2.id + 1),
+        ]);
+      }, 200);
       setselect2(null);
 
       setErrors((prev) => prev + 1);
+
+      return () => clearTimeout(revomeImg1, revomeImg2);
     };
 
     if (select1 !== null && select2 !== null) {
@@ -121,8 +133,9 @@ function App() {
         setselect1(null);
         setselect2(null);
       } else {
-        let rotate = setTimeout(resetItems, 750);
 
+        let rotate = setTimeout(resetItems, 500);
+        
         return () => clearInterval(rotate);
       }
     }

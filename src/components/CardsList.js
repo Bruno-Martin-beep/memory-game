@@ -1,5 +1,6 @@
 import React from "react";
-import nerv from "../assets/nerv.png";
+import left from "../assets/left.png";
+import right from "../assets/right.png";
 import gsap from "gsap";
 
 const CardsList = ({ cardsList, handleSelect }) => {
@@ -15,13 +16,13 @@ const CardsList = ({ cardsList, handleSelect }) => {
 
     gsap.to(e.currentTarget, {
       duration: 0.1,
-      rotationY: 15 * xPos,
-      rotationX: -15 * yPos,
+      rotationY: 30 * xPos,
+      rotationX: -30 * yPos,
       ease: "power1.inOut",
       x: 10 * xPos,
       y: 10 * yPos,
       // transformPerspective: 900,
-      // transformOrigin: "center",
+      transformOrigin: "center",
     });
   };
 
@@ -53,10 +54,16 @@ const CardsList = ({ cardsList, handleSelect }) => {
                   onMouseLeave={leaveAnim}
                 />
               )}
+              {/* {!elem.active && <img  className="card-nerv" src={nerv} alt="nerv" />} */}
               <img
-                className={`card-back ${"card-" + elem.id}`}
-                src={nerv}
-                alt="nerv"
+                className={`card-left ${"card-left" + elem.id}`}
+                src={left}
+                alt="nerv-left"
+              />
+              <img
+                className={`card-right ${"card-right" + elem.id}`}
+                src={right}
+                alt="nerv-right"
               />
             </div>
             <p className="card-name">{elem.active && elem.name}</p>

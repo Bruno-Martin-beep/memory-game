@@ -73,7 +73,7 @@ p {
   display: inline;
   font-size: 40px;
   @include portrait {
-    font-size: 2vw;
+    font-size: 3vw;
   }
   @include landscape {
     font-size: clamp(2vh, 2vw, 4vh);
