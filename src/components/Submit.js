@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import firebase from "./firebase";
+import gsap from "gsap";
+import Confetti from "react-confetti";
 
-const Submit = ({ errors, time, setIsFinished, isFinished }) => {
+const Submit = ({ errors, time, setIsFinished, isFinished, gameIsActive }) => {
   const [name, setName] = useState("");
+  const [runConfetti, setRunConfetti] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (name.length !== 0) {
+    if (name.length !== 0 && isFinished) {
       const scoresRef = firebase.database().ref("scores");
       const score = {
         name: name,
@@ -14,27 +17,97 @@ const Submit = ({ errors, time, setIsFinished, isFinished }) => {
         errors: errors,
       };
       scoresRef.push(score);
+
+      gsap.to(".submit-bg", 2, {
+        opacity: 0,
+        ease: "power1.out",
+        autoAlpha: 0,
+        onComplete: () => {
+          setRunConfetti(false);
+        },
+      });
+      gameIsActive()
       setIsFinished(false);
     }
   };
 
+  useEffect(() => {
+    if (isFinished) {
+      const submitrev = gsap.timeline();
+      submitrev
+        .to(".submit-bg", 1, {
+          opacity: 1,
+          ease: "power1.out",
+          visibility: "inherit",
+          autoAlpha: 0,
+          onComplete: setRunConfetti(true),
+        })
+        .from(".submit-title", 1, {
+          y: "140%",
+          ease: "power4.out",
+          skewY: 5,
+        })
+        .from(".submit-item", 1, {
+          y: "50%",
+          opacity: 0,
+          ease: "power1.out",
+          skewY: 2.5,
+          stagger: {
+            amount: 1,
+          },
+        });
+      return () => submitrev.kill();
+    }
+  }, [isFinished]);
+
+  useEffect(() => {
+    if (name.length >= 3 && name.length <= 16) {
+      gsap.to(".submit-check", 0.5, {
+        x: "0",
+        opacity: 1,
+        cursor: "pointer",
+      });
+    } else {
+      gsap.to(".submit-check", 0.5, {
+        x: "-50%",
+        opacity: 0,
+        cursor: "auto",
+      });
+    }
+  }, [name]);
+
   return (
-    <div className={`submit-bg ${isFinished && "is-active"}`}>
+    <div className="submit-bg">
+      <div className="confetti">
+        {runConfetti && (
+          <Confetti
+            colors={["#cccccc", "#999999", "#666666", "#333333"]}
+            numberOfPieces={50}
+          />
+        )}
+      </div>
       <div className="submit-cont">
-        <h2 className="submit-margin">CONGRATULATIONS!</h2>
+        <h2 className="submit-margin">
+          <span className="submit-title">CONGRATULATIONS!</span>
+        </h2>
         <div className="contBar-info submit-margin">
-          <p className="aling-names">TIME:</p>
-          <p className="orbit mainTime">
-            {("0" + Math.floor((time / 60000) % 60)).slice(-2)}:
+          <p className="aling-names submit-item">TIME:</p>
+          <p className="digi mainTime submit-item">
+            {("0" + Math.floor((time / 60000) % 60)).slice(-2)}
+            <span className="digi-nm">:</span>
             {("0" + Math.floor((time / 1000) % 60)).slice(-2)}
-            <span className="orbit mili-sec">
-              :{("0" + ((time / 10) % 100)).slice(-2)}
+            <span className="digi mili-sec">
+              <span className="digi-nm">:</span>
+              {("0" + ((time / 10) % 100)).slice(-2)}
             </span>
           </p>
-          <p className="aling-names">ERRORS:</p>
-          <p className="orbit errorsInfo">{errors}</p>
+          <p className="aling-names submit-item">ERRORS:</p>
+          <p className="digi mili-sec submit-item">{errors}</p>
         </div>
-        <form className="submit-margin submit-form" onSubmit={handleSubmit}>
+        <form
+          className="submit-margin submit-form submit-item"
+          onSubmit={handleSubmit}
+        >
           <input
             type="text"
             placeholder="Name"
@@ -44,7 +117,7 @@ const Submit = ({ errors, time, setIsFinished, isFinished }) => {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <input type="submit" value=">" className={`submit-check ${ isFinished && name.length >= 3 && name.length <= 16 && 'is-active' }`} />
+          <input type="submit" value=">" className={`submit-check `} />
         </form>
       </div>
     </div>

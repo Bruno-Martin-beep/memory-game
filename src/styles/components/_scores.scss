@@ -7,7 +7,13 @@
   margin: auto;
   display: grid;
   grid-template-columns: auto auto 0.5fr auto;
-  margin-bottom: 5vh;
+  justify-items: center;
+  margin-bottom: 4vh;
+}
+
+.score-name {
+  display: block;
+  position: relative;
 }
 
 .scores-title {
@@ -20,7 +26,9 @@
 
 .score-mili-sec {
   @include portrait {
-    font-size: 1.5vw;
+    font-size: 1.6vw;
   }
-  font-size: 1.5vw;
+  @include landscape {
+    font-size: clamp(1.6vh, 1.6vw, 3.2vh);
+  }
 }

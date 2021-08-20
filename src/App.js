@@ -6,6 +6,7 @@ import Submit from "./components/Submit";
 import Home from "./components/Home";
 import ControlsBar from "./components/ControlsBar";
 import CardsList from "./components/CardsList";
+import gsap from "gsap";
 
 function App() {
   const [finalList, setfinalList] = useState([]);
@@ -23,12 +24,17 @@ function App() {
   };
 
   const handleRestart = () => {
+    gsap.to(".card-back", 0.2, {
+      y: "0",
+    });
     setIsPlaying(true);
     setIsPaused(true);
     setTime(0);
     setErrors(0);
     setIsFinished(false);
     setfinalList(doubleAndRandomlyItems(items));
+    setselect1(null);
+    setselect2(null);
   };
 
   useEffect(() => {
@@ -75,6 +81,7 @@ function App() {
           { ...prev[value.id], active: true },
           ...prev.slice(value.id + 1),
         ]);
+        gsap.to(`.${"card-" + value.id}`, 0.2, { y: "120%" });
         return setselect1(value);
       } else {
         setfinalList((prev) => [
@@ -82,6 +89,7 @@ function App() {
           { ...prev[value.id], active: true },
           ...prev.slice(value.id + 1),
         ]);
+        gsap.to(`.${"card-" + value.id}`, 0.2, { y: "120%" });
         return setselect2(value);
       }
     }
@@ -89,6 +97,7 @@ function App() {
 
   useEffect(() => {
     const resetItems = () => {
+      gsap.to(`.${"card-" + select1.id}`, 0.2, { y: "0" });
       setfinalList((prev) => [
         ...prev.slice(0, select1.id),
         { ...prev[select1.id], active: false },
@@ -96,6 +105,7 @@ function App() {
       ]);
       setselect1(null);
 
+      gsap.to(`.${"card-" + select2.id}`, 0.2, { y: "0" });
       setfinalList((prev) => [
         ...prev.slice(0, select2.id),
         { ...prev[select2.id], active: false },
@@ -111,7 +121,7 @@ function App() {
         setselect1(null);
         setselect2(null);
       } else {
-        let rotate = setTimeout(resetItems, 1000);
+        let rotate = setTimeout(resetItems, 750);
 
         return () => clearInterval(rotate);
       }
@@ -136,9 +146,59 @@ function App() {
     setfinalList(doubleAndRandomlyItems(items));
   }, []);
 
+  /// gsap animation
+
+  const gameIsActive = () => {
+    const gamerev = gsap.timeline();
+    gamerev
+      .from(".contbar-item", {
+        y: "50%",
+        opacity: 0,
+        ease: "power1.out",
+        skewY: 2.5,
+        duration: 1,
+        delay: 1,
+        stagger: {
+          amount: 1,
+        },
+      })
+      .from(".card", {
+        y: "50%",
+        opacity: 0,
+        ease: "power1.out",
+        skewY: 10,
+        duration: 1,
+        stagger: {
+          grid: "auto",
+          from: "start",
+          amount: 1.5,
+        },
+      })
+      .from(".score-name", {
+        y: "50%",
+        opacity: 0,
+        ease: "power1.out",
+        skewY: 2.5,
+        duration: 1,
+      })
+      .from(".score-child", {
+        y: "50%",
+        opacity: 0,
+        ease: "power1.out",
+        skewY: 10,
+        duration: 1,
+        stagger: {
+          grid: "auto",
+          axis: "y",
+          from: "start",
+          amount: 1.5,
+        },
+      });
+  };
+
   return (
     <div className="App">
-      <Home />
+      <Home gameIsActive={gameIsActive} />
       <div className="game">
         <ControlsBar
           time={time}
@@ -154,6 +214,7 @@ function App() {
         errors={errors}
         setIsFinished={setIsFinished}
         isFinished={isFinished}
+        gameIsActive={gameIsActive}
       />
     </div>
   );

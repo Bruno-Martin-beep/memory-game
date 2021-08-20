@@ -5,10 +5,7 @@
   display: flex;
   z-index: 100;
   background-color: $bg;
-
-  &.is-active {
-    visibility: hidden;
-  }
+  overflow: hidden;
 }
 
 .name {
@@ -19,19 +16,12 @@
 }
 
 .MG {
+  align-self: flex-start;
   margin-top: 5vh;
 }
 
-.start {
-  box-sizing: content-box;
-  text-align: end;
-  
-}
-
 .start-text {
-  border-bottom: $text solid 0.4vw;
-  @include landscape {
-    border-bottom: $text solid 0.4vh;
-  }
+  align-self: flex-end;
+  text-decoration: underline solid $text 5%;
   cursor: pointer;
 }

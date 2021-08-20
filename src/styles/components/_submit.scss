@@ -4,22 +4,28 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 90;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: $bg;
+  opacity: 0;
   visibility: hidden;
+}
 
-  &.is-active {
-    visibility: visible;
-  }
+.confetti {
+  position: absolute;
+  z-index: 95;
+  top: 0;
+  left: 0;
 }
 
 .submit-cont {
+  z-index: 100;
   display: flex;
   flex-direction: column;
   align-items: center;
+  // backdrop-filter: blur(2px);
 }
 
 .submit-margin {
@@ -54,10 +60,11 @@
 }
 
 .submit-check {
+  display: block;
   position: absolute;
   top: 50%;
   right: 0;
-  transform: translateY(-50%);
+  transform: translate(0, -50%);
   @include portrait {
     font-size: 4vw;
   }
@@ -67,7 +74,6 @@
   font-family: "Epilogue", sans-serif;
   background-color: transparent;
   color: $text;
-  visibility: hidden;
   cursor: pointer;
 
   &.is-active {

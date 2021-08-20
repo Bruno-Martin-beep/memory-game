@@ -16,6 +16,7 @@ body {
 
 
 h1 {
+  position: relative;
   display: inline;
   @include portrait {
     font-size: 13vw;
@@ -26,9 +27,17 @@ h1 {
   font-family: "Montserrat", serif;
   line-height: 100%;
   color: $text;
+  overflow: hidden;
 }
 
+h1 > span {
+  display: block;
+  position: relative;
+}
+
+
 h2 {
+  position: relative;
   display: inline;
   @include portrait {
     font-size: 7.5vw;
@@ -38,6 +47,13 @@ h2 {
   }
   font-family: "Epilogue", sans-serif;
   color: $text;
+  overflow: hidden;
+}
+
+h2 > span {
+  display: block;
+  position: relative;
+  font-family: "Epilogue", sans-serif;
 }
 
 h3 {
