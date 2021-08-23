@@ -1,6 +1,6 @@
 import React from "react";
 
-const ControlsBar = ({ time, errors, handlePause, handleRestart }) => {
+const ControlsBar = ({ time, errors, handleRestart }) => {
   return (
     <div className="contBar-cont">
       <div className="contBar-info">
@@ -15,13 +15,10 @@ const ControlsBar = ({ time, errors, handlePause, handleRestart }) => {
           </span>
         </p>
         <p className="aling-names contbar-item">ERRORS:</p>
-        <p className="digi mili-sec contbar-item">{errors}</p>
+        <p className="digi mili-sec contbar-item errorsInfo">{errors}</p>
       </div>
       <div className="contBar">
-        <h3 className="pause contBar-buttons contbar-item" onClick={handlePause}>
-          PAUSE
-        </h3>
-        <h3 className="contBar-buttons contbar-item" onClick={handleRestart}>
+        <h3 className="contbar-item restart" onClick={handleRestart}>
           RESTART
         </h3>
       </div>

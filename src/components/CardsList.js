@@ -56,17 +56,21 @@ const CardsList = ({ cardsList, handleSelect }) => {
               )}
               {/* {!elem.active && <img  className="card-nerv" src={nerv} alt="nerv" />} */}
               <img
-                className={`card-left ${"card-left" + elem.id}`}
+                className={`card-left ${"card-left-" + elem.id}`}
                 src={left}
                 alt="nerv-left"
               />
               <img
-                className={`card-right ${"card-right" + elem.id}`}
+                className={`card-right ${"card-right-" + elem.id}`}
                 src={right}
                 alt="nerv-right"
               />
             </div>
-            <p className="card-name">{elem.active && elem.name}</p>
+            <p className="card-name">
+              <span className={`card-name-span ${"card-name-span-" + elem.id}`}>
+              {elem.active && elem.name}
+              </span>
+            </p>
           </div>
         );
       })}

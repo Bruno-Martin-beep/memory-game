@@ -28,6 +28,11 @@ h1 {
   line-height: 100%;
   color: $text;
   overflow: hidden;
+
+  &::selection {
+    background-color: $text;
+    color: $bg;
+  }
 }
 
 h1 > span {
@@ -48,6 +53,11 @@ h2 {
   font-family: "Epilogue", sans-serif;
   color: $text;
   overflow: hidden;
+
+  &::selection {
+    background-color: $text;
+    color: $bg;
+  }
 }
 
 h2 > span {
@@ -66,6 +76,11 @@ h3 {
   }
   font-family: "Epilogue", sans-serif;
   color: $text;
+
+  &::selection {
+    background-color: $text;
+    color: $bg;
+  }
 }
 
 p {
@@ -80,6 +95,25 @@ p {
   }
   font-family: "Epilogue", sans-serif;
   color: $text;
+  
+  &::selection {
+    background-color: $text;
+    color: $bg;
+  }
+}
+
+span {
+  &::selection {
+    background-color: $text;
+    color: $bg;
+  }
+}
+
+input {
+  &::selection {
+    background-color: $text;
+    color: $bg;
+  }
 }
 
 .game {

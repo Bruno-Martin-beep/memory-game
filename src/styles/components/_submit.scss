@@ -20,16 +20,33 @@
   left: 0;
 }
 
+.cancel {
+  position: absolute;
+  z-index: 100;
+  top: 2vh;
+  right: 2vw;
+  cursor: pointer;
+  user-select: none;
+}
+
 .submit-cont {
   z-index: 100;
   display: flex;
   flex-direction: column;
   align-items: center;
-  // backdrop-filter: blur(2px);
 }
 
 .submit-margin {
   margin: 5vh;
+}
+
+.submit-title {
+  font-family: "Epilogue", sans-serif;
+  color: $text;
+  text-decoration: none;
+  cursor: help;
+  display: block;
+  position: relative;
 }
 
 .submit-form {
@@ -38,7 +55,7 @@
 
 .submit-input {
   @include portrait {
-    width: 50vw;
+    width: 60vw;
     height: 5vw;
     font-size: 4vw;
   }

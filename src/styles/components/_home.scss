@@ -17,11 +17,12 @@
 
 .MG {
   align-self: flex-start;
-  margin-top: 5vh;
+  margin-top: 2.5vh;
 }
 
 .start-text {
   align-self: flex-end;
   text-decoration: underline solid $text 5%;
+  user-select: none;
   cursor: pointer;
 }

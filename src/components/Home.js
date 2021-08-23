@@ -3,42 +3,39 @@ import gsap from "gsap";
 
 const Home = ({ gameIsActive }) => {
   useEffect(() => {
-    const textrev = gsap.timeline();
-
-    textrev
-      .from("h1 span", 2, {
-        y: "140%",
-        ease: "power4.out",
-        delay: 0.75,
-        skewY: 10,
-        stagger: {
-          amount: 0.4,
-        },
-      })
-      .from(".MG", 1, {
-        y: "50%",
-        opacity: 0,
-        ease: "power1.out",
-        delay: 0,
-        skewY: 2.5,
-      })
-      .from(".start-text", 1, {
-        y: "50%",
-        opacity: 0,
-        ease: "power1.out",
-        skewY: 2.5,
-        autoAlpha: 0,
-      });
-      return () => textrev.kill();
+    gsap.from("h1 span", 2, {
+      y: "140%",
+      ease: "power4.out",
+      delay: 0.5,
+      skewY: 10,
+      stagger: {
+        amount: 0.4,
+      },
+    });
+    gsap.from(".MG", 1, {
+      y: "50%",
+      opacity: 0,
+      ease: "power1.out",
+      delay: 2,
+      skewY: 2.5,
+    });
+    gsap.from(".start-text", 1, {
+      y: "50%",
+      opacity: 0,
+      ease: "power1.out",
+      delay: 2.5,
+      skewY: 2.5,
+      autoAlpha: 0,
+    });
   }, []);
 
   const handleStart = () => {
-    gsap.to(".home", 1, {
+    gsap.to(".home", 0.6, {
       opacity: 0,
       ease: "power1.out",
       autoAlpha: 0,
     });
-    gameIsActive()
+    gameIsActive();
   };
 
   return (

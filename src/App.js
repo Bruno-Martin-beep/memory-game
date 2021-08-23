@@ -19,21 +19,26 @@ function App() {
   const [isPaused, setIsPaused] = useState(false);
   const [time, setTime] = useState(0);
 
-  const handlePause = () => {
-    setIsPaused(true);
-  };
-
   const handleRestart = () => {
     gsap.to(".card-left", 0.2, { x: "0" });
     gsap.to(".card-right", 0.2, { x: "0" });
-    setIsPlaying(true);
-    setIsPaused(true);
-    setTime(0);
-    setErrors(0);
-    setIsFinished(false);
-    setfinalList(doubleAndRandomlyItems(items));
-    setselect1(null);
-    setselect2(null);
+    gsap.to(".card-name-span", 0.2, {
+      y: "50%",
+      opacity: 0,
+      ease: "power1.out",
+      skewY: 0,
+    });
+    let reset = setTimeout(() => {
+      setIsPlaying(true);
+      setIsPaused(true);
+      setTime(0);
+      setErrors(0);
+      setIsFinished(false);
+      setfinalList(doubleAndRandomlyItems(items));
+      setselect1(null);
+      setselect2(null);
+    }, 200);
+    return () => clearTimeout(reset);
   };
 
   useEffect(() => {
@@ -80,8 +85,14 @@ function App() {
           { ...prev[value.id], active: true },
           ...prev.slice(value.id + 1),
         ]);
-        gsap.to(`.${"card-left" + value.id}`, 0.2, { x: "-100%" });
-        gsap.to(`.${"card-right" + value.id}`, 0.2, { x: "101%" });
+        gsap.to(".card-left-" + value.id, 0.2, { x: "-100%" });
+        gsap.to(".card-right-" + value.id, 0.2, { x: "101%" });
+        gsap.to(".card-name-span-" + value.id, 0.2, {
+          y: "0",
+          opacity: 1,
+          ease: "power1.out",
+          skewY: -10,
+        });
         return setselect1(value);
       } else {
         setfinalList((prev) => [
@@ -89,8 +100,14 @@ function App() {
           { ...prev[value.id], active: true },
           ...prev.slice(value.id + 1),
         ]);
-        gsap.to(`.${"card-left" + value.id}`, 0.2, { x: "-100%" });
-        gsap.to(`.${"card-right" + value.id}`, 0.2, { x: "101%" });
+        gsap.to(".card-left-" + value.id, 0.2, { x: "-100%" });
+        gsap.to(".card-right-" + value.id, 0.2, { x: "101%" });
+        gsap.to(".card-name-span-" + value.id, 0.2, {
+          y: "0",
+          opacity: 1,
+          ease: "power1.out",
+          skewY: -10,
+        });
         return setselect2(value);
       }
     }
@@ -98,8 +115,14 @@ function App() {
 
   useEffect(() => {
     const resetItems = () => {
-      gsap.to(`.${"card-left" + select1.id}`, 0.2, { x: "0" });
-      gsap.to(`.${"card-right" + select1.id}`, 0.2, { x: "0" });
+      gsap.to(".card-left-" + select1.id, 0.2, { x: "0" });
+      gsap.to(".card-right-" + select1.id, 0.2, { x: "0" });
+      gsap.to(".card-name-span-" + select1.id, 0.2, {
+        y: "50%",
+        opacity: 0,
+        ease: "power1.out",
+        skewY: 0,
+      });
 
       let revomeImg1 = setTimeout(() => {
         setfinalList((prev) => [
@@ -111,8 +134,14 @@ function App() {
 
       setselect1(null);
 
-      gsap.to(`.${"card-left" + select2.id}`, 0.2, { x: "0" });
-      gsap.to(`.${"card-right" + select2.id}`, 0.2, { x: "0" });
+      gsap.to(".card-left-" + select2.id, 0.2, { x: "0" });
+      gsap.to(".card-right-" + select2.id, 0.2, { x: "0" });
+      gsap.to(".card-name-span-" + select2.id, 0.2, {
+        y: "50%",
+        opacity: 0,
+        ease: "power1.out",
+        skewY: 0,
+      });
 
       let revomeImg2 = setTimeout(() => {
         setfinalList((prev) => [
@@ -133,9 +162,8 @@ function App() {
         setselect1(null);
         setselect2(null);
       } else {
-
         let rotate = setTimeout(resetItems, 500);
-        
+
         return () => clearInterval(rotate);
       }
     }
@@ -164,23 +192,21 @@ function App() {
   const gameIsActive = () => {
     const gamerev = gsap.timeline();
     gamerev
-      .from(".contbar-item", {
+      .from(".contbar-item", 0.6, {
         y: "50%",
         opacity: 0,
         ease: "power1.out",
         skewY: 2.5,
-        duration: 1,
         delay: 1,
         stagger: {
           amount: 1,
         },
       })
-      .from(".card", {
+      .from(".card", 0.6, {
         y: "50%",
         opacity: 0,
         ease: "power1.out",
         skewY: 10,
-        duration: 1,
         stagger: {
           grid: "auto",
           from: "start",
@@ -192,14 +218,14 @@ function App() {
         opacity: 0,
         ease: "power1.out",
         skewY: 2.5,
-        duration: 1,
+        duration: 0.6,
       })
       .from(".score-child", {
         y: "50%",
         opacity: 0,
         ease: "power1.out",
         skewY: 10,
-        duration: 1,
+        duration: 0.6,
         stagger: {
           grid: "auto",
           axis: "y",
@@ -216,7 +242,6 @@ function App() {
         <ControlsBar
           time={time}
           errors={errors}
-          handlePause={handlePause}
           handleRestart={handleRestart}
         />
         <CardsList cardsList={finalList} handleSelect={handleSelect} />

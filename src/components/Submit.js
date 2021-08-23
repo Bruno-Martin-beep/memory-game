@@ -6,6 +6,18 @@ import Confetti from "react-confetti";
 const Submit = ({ errors, time, setIsFinished, isFinished, gameIsActive }) => {
   const [name, setName] = useState("");
   const [runConfetti, setRunConfetti] = useState(false);
+  const [size, setSize] = useState({
+    x: window.innerWidth,
+    y: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const getSize = () => {
+      return setSize({ x: window.innerWidth, y: window.innerHeight });
+    };
+    window.addEventListener("resize", getSize);
+    return () => window.removeEventListener("resize", getSize);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,10 +38,23 @@ const Submit = ({ errors, time, setIsFinished, isFinished, gameIsActive }) => {
           setRunConfetti(false);
         },
       });
-      gameIsActive()
+      gameIsActive();
       setIsFinished(false);
     }
   };
+
+  const handleCancel = () => {
+    gsap.to(".submit-bg", 2, {
+      opacity: 0,
+      ease: "power1.out",
+      autoAlpha: 0,
+      onComplete: () => {
+        setRunConfetti(false);
+      },
+    });
+    gameIsActive();
+    setIsFinished(false);
+  }
 
   useEffect(() => {
     if (isFinished) {
@@ -56,6 +81,13 @@ const Submit = ({ errors, time, setIsFinished, isFinished, gameIsActive }) => {
             amount: 1,
           },
         });
+        gsap.from(".cancel", 1, {
+          y: "50%",
+          opacity: 0,
+          ease: "power1.out",
+          skewY: 2.5,
+          delay: 1,
+        });
       return () => submitrev.kill();
     }
   }, [isFinished]);
@@ -81,14 +113,18 @@ const Submit = ({ errors, time, setIsFinished, isFinished, gameIsActive }) => {
       <div className="confetti">
         {runConfetti && (
           <Confetti
+            width={size.x}
+            height={size.y}
             colors={["#cccccc", "#999999", "#666666", "#333333"]}
             numberOfPieces={50}
           />
         )}
       </div>
+      <p className="cancel" onClick={handleCancel}>CANCEL</p>
       <div className="submit-cont">
         <h2 className="submit-margin">
-          <span className="submit-title">CONGRATULATIONS!</span>
+          <a className="submit-title" target="_blank" href="https://www.youtube.com/watch?v=oyFQVZ2h0V8" rel="noreferrer">CONGRATULATIONS!</a>
+          {/* <span className="submit-title">CONGRATULATIONS!</span> */}
         </h2>
         <div className="contBar-info submit-margin">
           <p className="aling-names submit-item">TIME:</p>
@@ -102,7 +138,7 @@ const Submit = ({ errors, time, setIsFinished, isFinished, gameIsActive }) => {
             </span>
           </p>
           <p className="aling-names submit-item">ERRORS:</p>
-          <p className="digi mili-sec submit-item">{errors}</p>
+          <p className="digi mili-sec submit-item errorsInfo">{errors}</p>
         </div>
         <form
           className="submit-margin submit-form submit-item"

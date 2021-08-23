@@ -32,6 +32,11 @@
   margin: 0 1vw;
   line-height: 80%;
   align-self: flex-end;
+  
+  &::selection {
+    background-color: $text;
+    color: $bg;
+  }
 }
 
 .mili-sec {
@@ -47,13 +52,7 @@
 
 .errorsInfo {
   margin: 0 1vw;
-  @include portrait {
-    font-size: 3vw;
-  }
-  @include landscape {
-    font-size: clamp(3vh, 3vw, 6vh);
-  }
-  line-height: 80%;
+  line-height: 100%;
   align-self: flex-end;
 }
 
@@ -62,10 +61,8 @@
   align-items: center;
 }
 
-.contBar-buttons {
-  margin-top: 3%;
-}
-
-.pause {
-  margin-right: 2vw;
+.restart {
+  padding-top: 3%;
+  user-select: none;
+  cursor: pointer;
 }
