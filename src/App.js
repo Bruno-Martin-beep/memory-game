@@ -219,19 +219,6 @@ function App() {
         ease: "power1.out",
         skewY: 2.5,
         duration: 0.6,
-      })
-      .from(".score-child", {
-        y: "50%",
-        opacity: 0,
-        ease: "power1.out",
-        skewY: 10,
-        duration: 0.6,
-        stagger: {
-          grid: "auto",
-          axis: "y",
-          from: "start",
-          amount: 1.5,
-        },
       });
   };
 

@@ -1,8 +1,38 @@
 import React, { useState, useEffect } from "react";
 import firebase from "./firebase";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 const Scorelist = () => {
   const [scoresList, setScoresList] = useState([]);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    ScrollTrigger.batch(".score-child", {
+      scroller: ".game",
+      batchMax: 4,
+      start: "top 96%",
+      end: "top top",
+      onEnter: (batch) =>
+        gsap.to(batch, {
+          y: "0",
+          opacity: 1,
+          ease: "power1.out",
+          skewY: -10,
+          duration: 1,
+        }),
+      onLeaveBack: (batch) =>
+        gsap.to(batch, {
+          y: "50%",
+          opacity: 0,
+          ease: "power1.out",
+          skewY: 0,
+          duration: 1,
+        }),
+      markers: true,
+    });
+  }, [scoresList]);
 
   useEffect(() => {
     const scoresRef = firebase.database().ref("scores");

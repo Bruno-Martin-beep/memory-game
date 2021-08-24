@@ -47,6 +47,11 @@
   cursor: help;
   display: block;
   position: relative;
+
+  &::selection {
+    background-color: $text;
+    color: $bg;
+  }
 }
 
 .submit-form {

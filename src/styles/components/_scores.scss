@@ -21,6 +21,11 @@
   position: relative;
 }
 
+.score-child {
+  opacity: 0;
+  transform: translateY(50%) skewY(10deg);
+}
+
 .scores-title {
   margin: 2vw 2vw 3vw 2vw;
 }

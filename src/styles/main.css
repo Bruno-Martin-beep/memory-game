@@ -542,6 +542,12 @@ input::selection {
   position: relative;
 }
 
+.score-child {
+  opacity: 0;
+  -webkit-transform: translateY(50%) skewY(10deg);
+          transform: translateY(50%) skewY(10deg);
+}
+
 .scores-title {
   margin: 2vw 2vw 3vw 2vw;
 }
@@ -627,6 +633,16 @@ input::selection {
   cursor: help;
   display: block;
   position: relative;
+}
+
+.submit-title::-moz-selection {
+  background-color: #e6e6e6;
+  color: #1a1a1a;
+}
+
+.submit-title::selection {
+  background-color: #e6e6e6;
+  color: #1a1a1a;
 }
 
 .submit-form {
