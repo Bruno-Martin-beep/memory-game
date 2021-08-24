@@ -195,6 +195,8 @@ input::selection {
   width: 100%;
   height: 100vh;
   overflow: auto;
+  background-color: #1a1a1a;
+  z-index: 0;
 }
 
 .game::-webkit-scrollbar {
@@ -254,6 +256,24 @@ input::selection {
       -ms-user-select: none;
           user-select: none;
   cursor: pointer;
+}
+
+.preload-cont {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+@media (orientation: portrait) {
+  .preload-img {
+    height: clamp(8.42105vh, 11vw, 10vh);
+  }
+}
+
+@media (orientation: landscape) {
+  .preload-img {
+    height: clamp(12.30769vh, 8.25vw, 17.77778vh);
+  }
 }
 
 .contBar-cont {
@@ -520,7 +540,7 @@ input::selection {
   display: -ms-grid;
   display: grid;
   justify-items: center;
-  margin-bottom: 4vh;
+  margin-bottom: 8vh;
 }
 
 @media (orientation: portrait) {

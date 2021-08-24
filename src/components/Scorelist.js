@@ -12,7 +12,7 @@ const Scorelist = () => {
     ScrollTrigger.batch(".score-child", {
       scroller: ".game",
       batchMax: 4,
-      start: "top 96%",
+      start: "top 90%",
       end: "top top",
       onEnter: (batch) =>
         gsap.to(batch, {
@@ -30,7 +30,6 @@ const Scorelist = () => {
           skewY: 0,
           duration: 1,
         }),
-      markers: true,
     });
   }, [scoresList]);
 

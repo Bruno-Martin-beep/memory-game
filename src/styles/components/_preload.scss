@@ -1,0 +1,15 @@
+.preload-cont {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+.preload-img {
+  @include portrait {
+    height: clamp((80vh / 9.5), (11vw), ((80vh / 8)));
+  }
+
+  @include landscape {
+    height: clamp((80vh / 6.5), (11vw * 0.75), ((80vh / 4.5)));
+  }
+}

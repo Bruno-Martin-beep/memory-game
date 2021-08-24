@@ -7,6 +7,7 @@ import Home from "./components/Home";
 import ControlsBar from "./components/ControlsBar";
 import CardsList from "./components/CardsList";
 import gsap from "gsap";
+import Preload from "./components/Preload";
 
 function App() {
   const [finalList, setfinalList] = useState([]);
@@ -226,6 +227,7 @@ function App() {
     <div className="App">
       <Home gameIsActive={gameIsActive} />
       <div className="game">
+        <Preload />
         <ControlsBar
           time={time}
           errors={errors}

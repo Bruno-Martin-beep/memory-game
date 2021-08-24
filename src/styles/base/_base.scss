@@ -120,6 +120,8 @@ input {
   width: 100%;
   height: 100vh;
   overflow: auto;
+  background-color: $bg;
+  z-index: 0;
 
   &::-webkit-scrollbar {
     background: hsl(0, 0, 15%);

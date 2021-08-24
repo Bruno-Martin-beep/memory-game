@@ -54,7 +54,6 @@ const CardsList = ({ cardsList, handleSelect }) => {
                   onMouseLeave={leaveAnim}
                 />
               )}
-              {/* {!elem.active && <img  className="card-nerv" src={nerv} alt="nerv" />} */}
               <img
                 className={`card-left ${"card-left-" + elem.id}`}
                 src={left}
