@@ -5,7 +5,7 @@ const Preload = () => {
   return (
     <div className="preload-cont">
       {items.map((elem) => (
-        <img className="preload-img" src={elem.urlBg} alt={elem.name} />
+        <img key={elem.name} className="preload-img" src={elem.urlBg} alt={elem.name} />
       ))}
     </div>
   );

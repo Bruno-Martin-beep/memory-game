@@ -407,6 +407,7 @@ input::selection {
 
 @media (orientation: portrait) {
   .cardsList {
+    min-height: 85vh;
     -ms-grid-columns: (minmax(0, clamp(13.33333vh, 20vw, 40vh)))[auto-fit];
         grid-template-columns: repeat(auto-fit, minmax(0, clamp(13.33333vh, 20vw, 40vh)));
   }

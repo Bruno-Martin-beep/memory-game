@@ -198,7 +198,7 @@ function App() {
         opacity: 0,
         ease: "power1.out",
         skewY: 2.5,
-        delay: 1,
+        delay: 0.6,
         stagger: {
           amount: 1,
         },

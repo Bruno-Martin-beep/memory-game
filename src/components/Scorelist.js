@@ -1,35 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import firebase from "./firebase";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 const Scorelist = () => {
   const [scoresList, setScoresList] = useState([]);
+  const scores = useRef(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    ScrollTrigger.batch(".score-child", {
-      scroller: ".game",
-      batchMax: 4,
-      start: "top 90%",
-      end: "top top",
-      onEnter: (batch) =>
-        gsap.to(batch, {
-          y: "0",
-          opacity: 1,
-          ease: "power1.out",
-          skewY: -10,
-          duration: 1,
-        }),
-      onLeaveBack: (batch) =>
-        gsap.to(batch, {
-          y: "50%",
-          opacity: 0,
-          ease: "power1.out",
-          skewY: 0,
-          duration: 1,
-        }),
+    gsap.to(".score-child", {
+      y: "0",
+      opacity: 1,
+      ease: "power1.out",
+      skewY: -10,
+      duration: 1,
+      stagger: {
+        grid: "auto",
+        from: "start",
+        axis: "y",
+        amount: 10,
+      },
+      scrollTrigger: {
+        scroller: ".game",
+        trigger: ".scores",
+        start: `top bottom-=10%`,
+        end: () => `top bottom-=${scores.current.getBoundingClientRect().height + (window.innerHeight / 10)}`,
+        toggleActions: "play none reaverse reset",
+        scrub: 2,
+      },
     });
   }, [scoresList]);
 
@@ -55,7 +55,7 @@ const Scorelist = () => {
   return (
     <div className="scores-cont">
       <h3 className="epil score-name">SCORES</h3>
-      <div className="scores">
+      <div className="scores" ref={scores}>
         <p className="scores-title score-child">RANK</p>
         <p className="scores-title score-child">TIME</p>
         <p className="scores-title score-child">NAME</p>

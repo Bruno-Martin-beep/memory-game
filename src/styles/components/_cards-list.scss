@@ -39,6 +39,7 @@
   margin: auto;
   display: grid;
   @include portrait {
+    min-height: 85vh;
     grid-template-columns: repeat(
       auto-fit,
       minmax(0, clamp((80vh / 6), (20vw), (80vh / 2)))
