@@ -5,7 +5,7 @@
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  font-family: "Montserrat";
+  font-family: serif;
   font-weight: 500;
 }
 
@@ -24,7 +24,7 @@ h1 {
   @include landscape {
     font-size: clamp( 14.5vh, 13vw , 18.5vh);
   }
-  font-family: "Montserrat", serif;
+  font-family: serif;
   line-height: 100%;
   color: $text;
   overflow: hidden;

@@ -163,9 +163,9 @@ function App() {
         setselect1(null);
         setselect2(null);
       } else {
-        let rotate = setTimeout(resetItems, 500);
+        let close = setTimeout(resetItems, 500);
 
-        return () => clearInterval(rotate);
+        return () => clearTimeout(close);
       }
     }
   }, [select1, select2]);

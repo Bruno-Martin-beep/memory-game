@@ -42,7 +42,7 @@ const CardsList = ({ cardsList, handleSelect }) => {
     <div className="cardsList">
       {cardsList.map((elem, i) => {
         return (
-          <div className="card" key={i} onClick={(e) => handleSelect(elem)}>
+          <div className="card" key={i} onClick={(elem) => handleSelect(elem)}>
             <div className="card-img">
               {elem.active && (
                 <img
