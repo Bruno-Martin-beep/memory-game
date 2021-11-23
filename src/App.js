@@ -14,12 +14,8 @@ function App() {
   const [errors, setErrors] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
 
-  //timer
-
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const [time, setTime] = useState(0);
-
+  //restart
+  
   const handleRestart = () => {
     gsap.to(".card-left", 0.2, { x: "0" });
     gsap.to(".card-right", 0.2, { x: "0" });
@@ -41,6 +37,12 @@ function App() {
     }, 200);
     return () => clearTimeout(reset);
   };
+
+  //timer
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [time, setTime] = useState(0);
 
   useEffect(() => {
     let interval = null;

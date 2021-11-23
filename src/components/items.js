@@ -1,67 +1,58 @@
-import shinji from '../assets/shinji.jpg';
-import misato from '../assets/misato.jpg';
-import penpen from '../assets/penpen.jpg';
-import kaworu from '../assets/kaworu.jpg';
-import asuka from '../assets/asuka.jpg';
-import rei from '../assets/rei.png';
-import gendo from '../assets/gendo.jpg';
-import ritsuko from '../assets/ritsuko.jpg';
-import ryoji from '../assets/ryoji.jpg';
+import shinji from '../assets/shinji.webp';
+import misato from '../assets/misato.webp';
+import penpen from '../assets/penpen.webp';
+import kaworu from '../assets/kaworu.webp';
+import asuka from '../assets/asuka.webp';
+import rei from '../assets/rei.webp';
+import gendo from '../assets/gendo.webp';
+import ritsuko from '../assets/ritsuko.webp';
+import ryoji from '../assets/ryoji.webp';
 
-const items = [
+const items = [      
   {
     active: false,
     name: "shinji",
     urlBg: shinji,
-    urlChar: null,
   },
   {
     active: false,
     name: "misato",
     urlBg: misato,
-    urlChar: null,
   },
   {
     active: false,
     name: "gendo",
     urlBg: gendo,
-    urlChar: null,
   },
   {
     active: false,
     name: "rei",
     urlBg: rei,
-    urlChar: null,
   },
   {
     active: false,
     name: "asuka",
     urlBg: asuka,
-    urlChar: null,
   },
   {
     active: false,
     name: "kaworu",
     urlBg: kaworu,
-    urlChar: null,
   },
   {
     active: false,
     name: "ritsuko",
     urlBg: ritsuko,
-    urlChar: null,
   },
   {
     active: false,
     name: "ryoji",
     urlBg: ryoji,
-    urlChar: null,
   },
   {
     active: false,
     name: "pen pen",
     urlBg: penpen,
-    urlChar: null,
   }
 ];
 
