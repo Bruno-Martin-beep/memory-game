@@ -124,7 +124,6 @@ const Submit = ({ errors, time, setIsFinished, isFinished, gameIsActive }) => {
       <div className="submit-cont">
         <h2 className="submit-margin">
           <a className="submit-title" target="_blank" href="https://www.youtube.com/watch?v=oyFQVZ2h0V8" rel="noreferrer">CONGRATULATIONS!</a>
-          {/* <span className="submit-title">CONGRATULATIONS!</span> */}
         </h2>
         <div className="contBar-info submit-margin">
           <p className="aling-names submit-item">TIME:</p>

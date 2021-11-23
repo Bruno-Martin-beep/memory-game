@@ -1,6 +1,6 @@
 import React from "react";
-import left from "../assets/left.png";
-import right from "../assets/right.png";
+import left from "../assets/left.webp";
+import right from "../assets/right.webp";
 import gsap from "gsap";
 
 const CardsList = ({ cardsList, handleSelect }) => {
