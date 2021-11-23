@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/memory-game/static/css/main.3431381e.chunk.css",
-    "main.js": "/memory-game/static/js/main.90be559d.chunk.js",
-    "main.js.map": "/memory-game/static/js/main.90be559d.chunk.js.map",
+    "main.css": "/memory-game/static/css/main.bddd66a8.chunk.css",
+    "main.js": "/memory-game/static/js/main.48f9229b.chunk.js",
+    "main.js.map": "/memory-game/static/js/main.48f9229b.chunk.js.map",
     "runtime-main.js": "/memory-game/static/js/runtime-main.1a3f37a0.js",
     "runtime-main.js.map": "/memory-game/static/js/runtime-main.1a3f37a0.js.map",
     "static/js/2.488e371a.chunk.js": "/memory-game/static/js/2.488e371a.chunk.js",
@@ -10,25 +10,25 @@
     "static/js/3.7761755d.chunk.js": "/memory-game/static/js/3.7761755d.chunk.js",
     "static/js/3.7761755d.chunk.js.map": "/memory-game/static/js/3.7761755d.chunk.js.map",
     "index.html": "/memory-game/index.html",
-    "static/css/main.3431381e.chunk.css.map": "/memory-game/static/css/main.3431381e.chunk.css.map",
+    "static/css/main.bddd66a8.chunk.css.map": "/memory-game/static/css/main.bddd66a8.chunk.css.map",
     "static/js/2.488e371a.chunk.js.LICENSE.txt": "/memory-game/static/js/2.488e371a.chunk.js.LICENSE.txt",
-    "static/media/asuka.b439de1e.jpg": "/memory-game/static/media/asuka.b439de1e.jpg",
+    "static/media/asuka.d099d189.webp": "/memory-game/static/media/asuka.d099d189.webp",
     "static/media/main.css": "/memory-game/static/media/digital-7.93911ab1.ttf",
-    "static/media/gendo.c250d620.jpg": "/memory-game/static/media/gendo.c250d620.jpg",
-    "static/media/kaworu.5add9ac3.jpg": "/memory-game/static/media/kaworu.5add9ac3.jpg",
-    "static/media/left.09707b48.png": "/memory-game/static/media/left.09707b48.png",
-    "static/media/misato.71bc5529.jpg": "/memory-game/static/media/misato.71bc5529.jpg",
-    "static/media/penpen.97009186.jpg": "/memory-game/static/media/penpen.97009186.jpg",
-    "static/media/rei.69868dcd.png": "/memory-game/static/media/rei.69868dcd.png",
-    "static/media/right.6b8dafec.png": "/memory-game/static/media/right.6b8dafec.png",
-    "static/media/ritsuko.8130488e.jpg": "/memory-game/static/media/ritsuko.8130488e.jpg",
-    "static/media/ryoji.4074c5a1.jpg": "/memory-game/static/media/ryoji.4074c5a1.jpg",
-    "static/media/shinji.024aad69.jpg": "/memory-game/static/media/shinji.024aad69.jpg"
+    "static/media/gendo.403c18a3.webp": "/memory-game/static/media/gendo.403c18a3.webp",
+    "static/media/kaworu.897a9ecf.webp": "/memory-game/static/media/kaworu.897a9ecf.webp",
+    "static/media/left.af1f8995.webp": "/memory-game/static/media/left.af1f8995.webp",
+    "static/media/misato.d412f952.webp": "/memory-game/static/media/misato.d412f952.webp",
+    "static/media/penpen.e6a8b90e.webp": "/memory-game/static/media/penpen.e6a8b90e.webp",
+    "static/media/rei.1a0f6f54.webp": "/memory-game/static/media/rei.1a0f6f54.webp",
+    "static/media/right.23542444.webp": "/memory-game/static/media/right.23542444.webp",
+    "static/media/ritsuko.58cc75e9.webp": "/memory-game/static/media/ritsuko.58cc75e9.webp",
+    "static/media/ryoji.c2c914f3.webp": "/memory-game/static/media/ryoji.c2c914f3.webp",
+    "static/media/shinji.f7b411e6.webp": "/memory-game/static/media/shinji.f7b411e6.webp"
   },
   "entrypoints": [
     "static/js/runtime-main.1a3f37a0.js",
     "static/js/2.488e371a.chunk.js",
-    "static/css/main.3431381e.chunk.css",
-    "static/js/main.90be559d.chunk.js"
+    "static/css/main.bddd66a8.chunk.css",
+    "static/js/main.48f9229b.chunk.js"
   ]
 }
