@@ -32,7 +32,7 @@
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  font-family: "Montserrat";
+  font-family: serif;
   font-weight: 500;
 }
 
@@ -44,7 +44,7 @@ body {
 h1 {
   position: relative;
   display: inline;
-  font-family: "Montserrat", serif;
+  font-family: serif;
   line-height: 100%;
   color: #e6e6e6;
   overflow: hidden;
@@ -264,16 +264,9 @@ input::selection {
   z-index: -1;
 }
 
-@media (orientation: portrait) {
-  .preload-img {
-    height: clamp(8.42105vh, 11vw, 10vh);
-  }
-}
-
-@media (orientation: landscape) {
-  .preload-img {
-    height: clamp(12.30769vh, 8.25vw, 17.77778vh);
-  }
+.preload-img {
+  width: 11vw;
+  height: 8.25vw;
 }
 
 .contBar-cont {
