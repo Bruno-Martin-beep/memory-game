@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addTime, selectTime, selectErrors, selectIsPlaying } from "../features/timerSlice";
 
-const ControlsBar = ({ time, errors, handleRestart }) => {
+const ControlsBar = ({ handleRestart }) => {
+  const time = useSelector(selectTime);
+  const errors = useSelector(selectErrors);
+  const isPlaying = useSelector(selectIsPlaying);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    let interval = null;
+
+    if (isPlaying) {
+      interval = setInterval(() => {
+        dispatch(addTime());
+      }, 10);
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [isPlaying, dispatch]);
+
   return (
     <div className="contBar-cont">
       <div className="contBar-info">

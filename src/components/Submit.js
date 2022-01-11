@@ -2,8 +2,14 @@ import React, { useState, useEffect } from "react";
 import firebase from "./firebase";
 import gsap from "gsap";
 import Confetti from "react-confetti";
+import { useSelector } from "react-redux";
+import { selectTime, selectErrors } from "../features/timerSlice";
 
-const Submit = ({ errors, time, setIsFinished, isFinished, gameIsActive }) => {
+
+const Submit = ({ setIsFinished, isFinished, gameIsActive }) => {
+  const time = useSelector(selectTime);
+  const errors = useSelector(selectErrors);
+
   const [name, setName] = useState("");
   const [runConfetti, setRunConfetti] = useState(false);
   const [size, setSize] = useState({
