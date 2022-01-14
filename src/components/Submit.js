@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import firebase from "./firebase";
 import gsap from "gsap";
 import Confetti from "react-confetti";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectTime, selectErrors } from "../features/timerSlice";
+import { setIsFinished, selectIsFinished } from "../features/cardListSlice";
 
 
-const Submit = ({ setIsFinished, isFinished, gameIsActive }) => {
+const Submit = ({ gameIsActive }) => {
+  const dispatch = useDispatch();
   const time = useSelector(selectTime);
   const errors = useSelector(selectErrors);
+  const isFinished = useSelector(selectIsFinished);
 
   const [name, setName] = useState("");
   const [runConfetti, setRunConfetti] = useState(false);
@@ -45,7 +48,7 @@ const Submit = ({ setIsFinished, isFinished, gameIsActive }) => {
         },
       });
       gameIsActive();
-      setIsFinished(false);
+      dispatch(setIsFinished(false));
     }
   };
 
@@ -59,7 +62,7 @@ const Submit = ({ setIsFinished, isFinished, gameIsActive }) => {
       },
     });
     gameIsActive();
-    setIsFinished(false);
+    dispatch(setIsFinished(false));
   }
 
   useEffect(() => {

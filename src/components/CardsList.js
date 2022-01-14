@@ -1,9 +1,114 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addError,
+  togglePlaying,
+  selectIsPlaying,
+} from "../features/timerSlice";
+import { 
+  toggleActive, 
+  setObserver1, 
+  setObserver2,
+  selectObserver1, 
+  selectObserver2, 
+  selectIsFinished 
+} from "../features/cardListSlice";
+
 import left from "../assets/left.webp";
 import right from "../assets/right.webp";
 import gsap from "gsap";
 
-const CardsList = ({ cardsList, handleSelect }) => {
+const CardsList = ({ cardsList }) => {
+  const dispatch = useDispatch();
+  const isPlaying = useSelector(selectIsPlaying);
+  const observer1 = useSelector(selectObserver1);
+  const observer2 = useSelector(selectObserver2);
+  const isFinished = useSelector(selectIsFinished);
+  
+
+  const handleSelect = (value) => {
+    if (
+      !value.active &&
+      (observer1 === null || observer2 === null) &&
+      !isFinished
+    ) {
+      if (!isPlaying) {
+        dispatch(togglePlaying(true));
+      }
+      if (observer1 === null) {
+        dispatch(toggleActive({ id: value.id, active: true }))
+        gsap.to(".card-left-" + value.id, 0.2, { x: "-100%" });
+        gsap.to(".card-right-" + value.id, 0.2, { x: "101%" });
+        gsap.to(".card-name-span-" + value.id, 0.2, {
+          y: "0",
+          opacity: 1,
+          ease: "power1.out",
+          skewY: -10,
+        });
+        return dispatch(setObserver1(value));
+      } else {
+        dispatch(toggleActive({ id: value.id, active: true }))
+        gsap.to(".card-left-" + value.id, 0.2, { x: "-100%" });
+        gsap.to(".card-right-" + value.id, 0.2, { x: "101%" });
+        gsap.to(".card-name-span-" + value.id, 0.2, {
+          y: "0",
+          opacity: 1,
+          ease: "power1.out",
+          skewY: -10,
+        });
+        return dispatch(setObserver2(value));
+      }
+    }
+  };
+
+  useEffect(() => {
+    const resetItems = () => {
+      gsap.to(".card-left-" + observer1.id, 0.2, { x: "0" });
+      gsap.to(".card-right-" + observer1.id, 0.2, { x: "0" });
+      gsap.to(".card-name-span-" + observer1.id, 0.2, {
+        y: "50%",
+        opacity: 0,
+        ease: "power1.out",
+        skewY: 0,
+      });
+
+      let revomeImg1 = setTimeout(() => {
+        dispatch(toggleActive({ id: observer1.id, active: false }))
+      }, 200);
+
+      dispatch(setObserver1(null));
+
+      gsap.to(".card-left-" + observer2.id, 0.2, { x: "0" });
+      gsap.to(".card-right-" + observer2.id, 0.2, { x: "0" });
+      gsap.to(".card-name-span-" + observer2.id, 0.2, {
+        y: "50%",
+        opacity: 0,
+        ease: "power1.out",
+        skewY: 0,
+      });
+
+      let revomeImg2 = setTimeout(() => {
+        dispatch(toggleActive({ id: observer2.id, active: false }))
+      }, 200);
+      dispatch(setObserver2(null));
+
+      dispatch(addError())
+
+      return () => clearTimeout(revomeImg1, revomeImg2);
+    };
+
+    if (observer1 !== null && observer2 !== null) {
+      if (observer1.name === observer2.name) {
+        dispatch(setObserver1(null));
+        dispatch(setObserver2(null));
+      } else {
+        let close = setTimeout(resetItems, 500);
+
+        return () => clearTimeout(close);
+      }
+    }
+  }, [observer1, observer2, dispatch]);
+
   const mouseMoveAnim = (e) => {
     const clamp = (min, value, max) => {
       return Math.max(min, Math.min(value, max));

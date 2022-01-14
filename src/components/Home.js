@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  cleartime,
-  addError,
-  clearErrors,
-  togglePlaying,
-  selectIsPlaying,
+  togglePlaying
 } from "../features/timerSlice";
+import { 
+  setAllcards, 
+  setIsFinished,
+  selectAllCards
+} from "../features/cardListSlice";
 
 import items from "./items";
 import Scorelist from "./Scorelist";
@@ -18,154 +19,25 @@ import gsap from "gsap";
 import Preload from "./Preload";
 
 function Home() {
-  const isPlaying = useSelector(selectIsPlaying);
   const dispatch = useDispatch();
-  const [finalList, setfinalList] = useState([]);
-  const [isFinished, setIsFinished] = useState(false);
-
-  //restart
-
-  const handleRestart = () => {
-    gsap.to(".card-left", 0.2, { x: "0" });
-    gsap.to(".card-right", 0.2, { x: "0" });
-    gsap.to(".card-name-span", 0.2, {
-      y: "50%",
-      opacity: 0,
-      ease: "power1.out",
-      skewY: 0,
-    });
-    let reset = setTimeout(() => {
-      dispatch(cleartime());
-      dispatch(clearErrors());
-      dispatch(togglePlaying(false));
-      setIsFinished(false);
-      setfinalList(doubleAndRandomlyItems(items));
-      setselect1(null);
-      setselect2(null);
-    }, 200);
-    return () => clearTimeout(reset);
-  };
+  const allCards = useSelector(selectAllCards);
 
   // finisher
 
   useEffect(() => {
     let arr1 = null;
 
-    if (finalList.length !== 0) {
-      arr1 = finalList.every((element) => element.active);
+    if (allCards.length !== 0) {
+      arr1 = allCards.every((element) => element.active);
     }
 
     if (arr1) {
       dispatch(togglePlaying(false));
-      setIsFinished(true);
+      dispatch(setIsFinished(true));
     }
-  }, [finalList, dispatch]);
+  }, [allCards, dispatch]);
 
-  // handle selects
-
-  const [select1, setselect1] = useState(null);
-  const [select2, setselect2] = useState(null);
-
-  const handleSelect = (value) => {
-    if (
-      !value.active &&
-      (select1 === null || select2 === null) &&
-      !isFinished
-    ) {
-      if (!isPlaying) {
-        dispatch(togglePlaying(true));
-      }
-      if (select1 === null) {
-        setfinalList((prev) => [
-          ...prev.slice(0, value.id),
-          { ...prev[value.id], active: true },
-          ...prev.slice(value.id + 1),
-        ]);
-        gsap.to(".card-left-" + value.id, 0.2, { x: "-100%" });
-        gsap.to(".card-right-" + value.id, 0.2, { x: "101%" });
-        gsap.to(".card-name-span-" + value.id, 0.2, {
-          y: "0",
-          opacity: 1,
-          ease: "power1.out",
-          skewY: -10,
-        });
-        return setselect1(value);
-      } else {
-        setfinalList((prev) => [
-          ...prev.slice(0, value.id),
-          { ...prev[value.id], active: true },
-          ...prev.slice(value.id + 1),
-        ]);
-        gsap.to(".card-left-" + value.id, 0.2, { x: "-100%" });
-        gsap.to(".card-right-" + value.id, 0.2, { x: "101%" });
-        gsap.to(".card-name-span-" + value.id, 0.2, {
-          y: "0",
-          opacity: 1,
-          ease: "power1.out",
-          skewY: -10,
-        });
-        return setselect2(value);
-      }
-    }
-  };
-
-  useEffect(() => {
-    const resetItems = () => {
-      gsap.to(".card-left-" + select1.id, 0.2, { x: "0" });
-      gsap.to(".card-right-" + select1.id, 0.2, { x: "0" });
-      gsap.to(".card-name-span-" + select1.id, 0.2, {
-        y: "50%",
-        opacity: 0,
-        ease: "power1.out",
-        skewY: 0,
-      });
-
-      let revomeImg1 = setTimeout(() => {
-        setfinalList((prev) => [
-          ...prev.slice(0, select1.id),
-          { ...prev[select1.id], active: false },
-          ...prev.slice(select1.id + 1),
-        ]);
-      }, 200);
-
-      setselect1(null);
-
-      gsap.to(".card-left-" + select2.id, 0.2, { x: "0" });
-      gsap.to(".card-right-" + select2.id, 0.2, { x: "0" });
-      gsap.to(".card-name-span-" + select2.id, 0.2, {
-        y: "50%",
-        opacity: 0,
-        ease: "power1.out",
-        skewY: 0,
-      });
-
-      let revomeImg2 = setTimeout(() => {
-        setfinalList((prev) => [
-          ...prev.slice(0, select2.id),
-          { ...prev[select2.id], active: false },
-          ...prev.slice(select2.id + 1),
-        ]);
-      }, 200);
-      setselect2(null);
-
-      dispatch(addError())
-
-      return () => clearTimeout(revomeImg1, revomeImg2);
-    };
-
-    if (select1 !== null && select2 !== null) {
-      if (select1.name === select2.name) {
-        setselect1(null);
-        setselect2(null);
-      } else {
-        let close = setTimeout(resetItems, 500);
-
-        return () => clearTimeout(close);
-      }
-    }
-  }, [select1, select2, dispatch]);
-
-  //get finalList
+  //get allCards
 
   const doubleAndRandomlyItems = (arr) => {
     let arr1 = arr.reduce((acc, x) => acc.concat([x, x]), []);
@@ -178,7 +50,7 @@ function Home() {
   };
 
   useEffect(() => {
-    setfinalList(doubleAndRandomlyItems(items));
+    dispatch(setAllcards(doubleAndRandomlyItems(items)));
   }, [dispatch]);
 
   /// gsap animation
@@ -221,15 +93,11 @@ function Home() {
       <Start gameIsActive={gameIsActive} />
       <div className="game">
         <Preload />
-        <ControlsBar handleRestart={handleRestart} />
-        <CardsList cardsList={finalList} handleSelect={handleSelect} />
+        <ControlsBar doubleAndRandomlyItems={doubleAndRandomlyItems} />
+        <CardsList cardsList={allCards} />
         <Scorelist />
       </div>
-      <Submit
-        setIsFinished={setIsFinished}
-        isFinished={isFinished}
-        gameIsActive={gameIsActive}
-      />
+      <Submit gameIsActive={gameIsActive} />
     </div>
   );
 }
